@@ -1,5 +1,13 @@
-module.exports.index = (req, res) => {
+const Product = require("../../models/product.model")
+
+module.exports.index = async (req, res) => {
+    const products = await Product.find({
+        status: "active",
+        deleted: false
+    });
+    console.log(products);
     res.render('client/pages/product/index', {
-        pageTitle: "Trang sản phẩm"
+        pageTitle: "Trang sản phẩm",
+        products: products
     });
 }
