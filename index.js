@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'))
 
-//App Locals variables (sử dụng biến này trong file pug)
+//App Locals variables (sử dụng biến toàn cục này trong file pug)
 app.locals.preFixAdmin = configSystem.prefixAdmin;
 
 //Routes
