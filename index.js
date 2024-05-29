@@ -12,10 +12,15 @@ const port = process.env.PORT;
 const database = require("./config/database");
 database.connect();
 
+const configSystem = require("./config/system");
+
 app.set('views', './views');
 app.set('view engine', 'pug');
 
 app.use(express.static('public'))
+
+//App Locals variables (sử dụng biến này trong file pug)
+app.locals.preFixAdmin = configSystem.prefixAdmin;
 
 //Routes
 routes(app);
