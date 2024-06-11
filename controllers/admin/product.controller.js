@@ -4,6 +4,7 @@ const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
+    //req.query dùng để lấy các tham số trên URL sau dấu ?
     // console.log(req.query);
     const filterStatus = filterStatusHelper(req.query);
     console.log(filterStatus);
@@ -49,9 +50,29 @@ module.exports.index = async (req, res) => {
 
 //[PATCH] /admin/products/change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
+    //req.params dùng để lấy các routes động trên url (sau dấu :)
     const id = req.params.id;
     const status = req.params.status;
 
     await Product.updateOne({ _id: id }, { status: status })
     res.redirect("back");
 };
+
+//[PATCH] /admin/products/change-multi
+module.exports.changeMultiStatus = async (req, res) => {
+    //req.body Dùng để lấy dữ liệu được gửi trong thân của một yêu cầu HTTP POST, PUT, hoặc PATCH.
+    const type = req.body.type;
+    const ids = req.body.ids.split(", ");
+
+    switch (type) {
+        case "active":
+            await Product.updateMany({_id: {$in: ids}}, {status: "active"});
+            break;
+        case "inactive":
+            await Product.updateMany({_id: {$in: ids}}, {status: "inactive"});
+            break;
+        default:
+            break;
+    }
+    res.redirect("back");
+};  

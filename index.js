@@ -1,5 +1,6 @@
 const express = require('express')
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 
 require('dotenv').config()
 
@@ -15,6 +16,9 @@ const database = require("./config/database");
 database.connect();
 
 const configSystem = require("./config/system");
+
+// parse application/x-www-form-urlencoded (Lấy dữ liệu từ req.body)
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.set('views', './views');
 app.set('view engine', 'pug');
