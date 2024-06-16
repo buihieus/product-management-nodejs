@@ -17,6 +17,7 @@ module.exports = (query) => {
       class: "",
     },
   ];
+  //Làm cho các button status nổi lên
   if (query.status) {
     const index = filterStatus.findIndex(
       (item) => item.status == query.status
