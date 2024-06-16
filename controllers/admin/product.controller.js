@@ -7,7 +7,7 @@ module.exports.index = async (req, res) => {
     //req.query dùng để lấy các tham số trên URL sau dấu ?
     // console.log(req.query);
     const filterStatus = filterStatusHelper(req.query);
-    console.log(filterStatus);
+    // console.log(filterStatus);
     let find = {
         deleted: false
     };
@@ -76,3 +76,12 @@ module.exports.changeMultiStatus = async (req, res) => {
     }
     res.redirect("back");
 };  
+
+//[DELETE] /admin/delete/:id
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+
+    await Product.deleteOne({_id: id});
+
+    res.redirect("back");
+}
