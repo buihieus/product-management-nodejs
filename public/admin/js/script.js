@@ -87,13 +87,22 @@ if (checkboxMulti) {
 }
 //End checkbox Multi
 
-//Form Change Multi Status (Lấy tất cả các id dán vào ô input ids để đẩy lên server để controller nhậ được)
+//Form Change Multi Status (Lấy tất cả các id dán vào ô input ids để đẩy lên server để controller nhận được)
 const formChangeMulti = document.querySelector("[form-change-multi]");
 if (formChangeMulti) {
     formChangeMulti.addEventListener("submit", (e) => {
         e.preventDefault();
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+
+        let typeChange = e.target.elements.type.value;
+        if (typeChange == "delete-all") {
+          const isConfirm = confirm("Do you want to delete all items?");
+          if (!isConfirm) {
+            return;
+          }
+        }
+
         if (inputsChecked.length > 0) {
             let ids = [];
             const inputIds = formChangeMulti.querySelector("input[name='ids']");
