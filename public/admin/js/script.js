@@ -25,7 +25,7 @@ if (formSearch) {
   let url = new URL(window.location.href);
 
   formSearch.addEventListener("submit", (event) => {
-    event.preventDefault();// Ngăn load lại trang
+    event.preventDefault(); // Ngăn load lại trang
     const keyword = event.target.elements.keyword.value;
     console.log(event.target.elements.keyword.value);
     if (keyword) {
@@ -90,31 +90,40 @@ if (checkboxMulti) {
 //Form Change Multi Status (Lấy tất cả các id dán vào ô input ids để đẩy lên server để controller nhận được)
 const formChangeMulti = document.querySelector("[form-change-multi]");
 if (formChangeMulti) {
-    formChangeMulti.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const checkboxMulti = document.querySelector("[checkbox-multi]");
-        const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+  formChangeMulti.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const checkboxMulti = document.querySelector("[checkbox-multi]");
+    const inputsChecked = checkboxMulti.querySelectorAll(
+      "input[name='id']:checked"
+    );
 
-        let typeChange = e.target.elements.type.value;
-        if (typeChange == "delete-all") {
-          const isConfirm = confirm("Do you want to delete all items?");
-          if (!isConfirm) {
-            return;
-          }
-        }
+    let typeChange = e.target.elements.type.value;
+    if (typeChange == "delete-all") {
+      const isConfirm = confirm("Do you want to delete all items?");
+      if (!isConfirm) {
+        return;
+      }
+    }
 
-        if (inputsChecked.length > 0) {
-            let ids = [];
-            const inputIds = formChangeMulti.querySelector("input[name='ids']");
-            inputsChecked.forEach(input => {
-                let id = input.value;
-                ids.push(id);
-            });
-            inputIds.value = ids.join(", ");
-            formChangeMulti.submit();
+    if (inputsChecked.length > 0) {
+      let ids = [];
+      const inputIds = formChangeMulti.querySelector("input[name='ids']");
+      inputsChecked.forEach((input) => {
+        let id = input.value;
+        if (typeChange == "change-position") {
+          const position = input
+            .closest("tr")
+            .querySelector("input[name='position']").value;
+          ids.push(`${id}-${position}`);
         } else {
-            alert("Vui lòng chọn ít nhất một bản ghi");
+          ids.push(id);
         }
-});
+      });
+      inputIds.value = ids.join(", ");
+      formChangeMulti.submit();
+    } else {
+      alert("Vui lòng chọn ít nhất một bản ghi");
+    }
+  });
 }
 //End Form Change Multi Status
