@@ -35,97 +35,51 @@ padding: 10px;
 /* End Footer */
 
 /* product-item */
-body {
-  font-family: Arial, sans-serif;
-}
-
-.container {
-  margin: 1rem 0;
-}
-
 .box-head h2.inner-title {
-  font-size: 24px;
   color: green;
 }
-
-.product-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .product-item {
   border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  max-width: 250px; /* Adjust the width as needed */
-  margin: 10px; /* Add some margin to space out the items */
-}
-
-.inner-image {
-  height: 150px; /* Adjust the height as needed */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 8px; 
   overflow: hidden;
-  margin-bottom: 10px;
 }
 
-.inner-image img {
-  width: auto;
-  height: auto;
-  max-width: 100%; /* Adjust this value as needed to make the images smaller */
-  max-height: 100%;
-  margin: auto;
+.product-item .inner-image { 
+width: 100%;
+aspect-ratio: 4/3;
+border-bottom: 1px solid #ddd;
+}
+.product-item .inner-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.product-item .inner-content {
+padding: 15px;
+}
+.product-item .inner-content .inner-title {
+font-size: 20px; 
+font-weight: 600;
 }
 
-.inner-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 10px 0;
+.product-item .inner-content .inner-price-new {
+font-size: 18px;
+font-weight: 600;
+color: green;
 }
-
-.inner-title {
-  font-size: 16px; /* Adjust the font size as needed */
-  margin-bottom: 5px;
-  text-align: left;
+.product-item .inner-content .inner-price-old { font-size: 18px;
+font-weight: 600;
+color: red;
+text-decoration: line-through;
 }
-
-.inner-price-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.inner-price-new {
-  font-size: 18px; /* Adjust the font size as needed */
-  color: green;
-  font-weight: bold;
-}
-
-.inner-price-old {
-  font-size: 14px; /* Adjust the font size as needed */
-  color: red;
-  text-decoration: line-through;
-  margin-left: 10px;
-}
-
-.inner-discount {
-  font-size: 12px; /* Adjust the font size as needed */
-  color: white;
-  background-color: red;
-  padding: 2px 5px;
-  border-radius: 3px;
-  display: inline-block;
-  margin-top: 5px;
-  align-self: flex-start;
+.product-item .inner-content .inner-discount {
+font-size: 14px;
+font-weight: 600; 
+color: white; 
+background: red;
+display: inline-block; 
+padding: 3px 10px; 
+border-radius: 8px;
 }
 /*End product-item */
 
