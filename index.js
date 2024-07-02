@@ -32,7 +32,7 @@ app.use(flash());
 
 app.use(express.static('public'))
 
-//App Locals variables (sử dụng biến toàn cục này trong file pug)
+//App Locals variables (chỉ sử dụng biến toàn cục này trong file pug)
 app.locals.preFixAdmin = configSystem.prefixAdmin;
 
 //Routes
