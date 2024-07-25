@@ -23,4 +23,5 @@ router.get('/edit/:id', controller.edit)
 
 router.patch('/edit/:id', upload.single("thumbnail"), createValidate.createPost, controller.editPatch);
 
+router.get('/details/:id', controller.details)
 module.exports = router;
