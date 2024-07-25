@@ -22,7 +22,7 @@ const configSystem = require("./config/system");
 // parse application/x-www-form-urlencoded (Lấy dữ liệu từ req.body)
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 
 //Flash (Hiện thông báo)
@@ -30,7 +30,7 @@ app.use(cookieParser('VANCHIKHANH'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
-app.use(express.static('public'))
+app.use(express.static(`${__dirname}/public`))
 
 //App Locals variables (chỉ sử dụng biến toàn cục này trong file pug)
 app.locals.preFixAdmin = configSystem.prefixAdmin;
