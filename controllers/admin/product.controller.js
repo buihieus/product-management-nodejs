@@ -32,16 +32,18 @@ module.exports.index = async (req, res) => {
     req.query,
     countProducts
   );
-  // if (req.query.page) {
-  //     objectPagination.currentPage = parseInt(req.query.page);
-  // }
-  // objectPagination.skip = (objectPagination.currentPage -1)*objectPagination.limitItems;
-  // const countProducts = await Product.countDocuments(find);
-  // const totalPages = Math.ceil(countProducts/objectPagination.limitItems);
-  // objectPagination.totalPages = totalPages;
-  //End pagination
+  //End Pagination
+
+  //Sort
+  let sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue
+  } else {
+    sort.position = "desc";
+  }
+  //End sort
   const products = await Product.find(find)
-    .sort({ position: "asc" })
+    .sort(sort)
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip);
   // console.log(products);
