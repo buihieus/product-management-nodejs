@@ -72,6 +72,7 @@ module.exports.changeStatus = async (req, res) => {
 //[PATCH] /admin/products/change-multi
 module.exports.changeMultiStatus = async (req, res) => {
   //req.body Dùng để lấy dữ liệu được gửi trong thân của một yêu cầu HTTP POST, PUT, hoặc PATCH.
+  console.log(req.body);
   const type = req.body.type;
   const ids = req.body.ids.split(", ");
 
