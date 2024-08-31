@@ -39,10 +39,10 @@ module.exports.index = async (req, res) => {
   //   sort.position = "asc";
   // }
   // //End sort
-  const records = await Category.find(find)
-    // .sort(sort)
-    // .limit(objectPagination.limitItems)
-    // .skip(objectPagination.skip);
+  const records = await Category.find(find);
+  // .sort(sort)
+  // .limit(objectPagination.limitItems)
+  // .skip(objectPagination.skip);
   const newRecords = createTreeHelper.tree(records);
   res.render("admin/pages/category/index", {
     pageTitle: "Danh mục sản phẩm",
@@ -57,24 +57,10 @@ module.exports.index = async (req, res) => {
 module.exports.create = async (req, res) => {
   let find = {
     deleted: false,
-  }
+  };
   // Lấy danh mục cha và con tương ứng
-  function createTree(arr, parent_id="") {
-    const tree = [];
-    arr.forEach((item) => {
-      if (item.parent_id === parent_id) {
-        const newItem = item;
-        const children = createTree(arr, item.id);
-        if(children.length > 0) {
-          newItem.children = children;
-        }
-        tree.push(newItem);
-      }
-    })
-    return tree;
-  }
   const records = await Category.find(find);
-  const newRecords = createTree(records);
+  const newRecords = createTreeHelper.tree(records);
   console.log(newRecords);
   res.render("admin/pages/category/create", {
     pageTitle: "Tạo danh mục sản phẩm",
@@ -93,4 +79,33 @@ module.exports.createPost = async (req, res) => {
   const category = new Category(req.body);
   await category.save();
   res.redirect(`${systemConfig.prefixAdmin}/category`);
+};
+
+//[GET] /admin/category/edit/:id
+module.exports.edit = async (req, res) => {
+  try {
+    const data = await Category.findOne({
+      _id: req.params.id,
+      deleted: false,
+    });
+    const records = await Category.find({
+      deleted: false,
+    });
+    const newRecords = createTreeHelper.tree(records);
+    res.render("admin/pages/category/edit", {
+      pageTitle: "Chỉnh sửa danh mục sản phẩm",
+      data: data,
+      records: newRecords,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/category`);
+  }
+};
+
+//[PATCH] /admin/category/edit/:id
+module.exports.editPatch = async (req, res) => {
+  const id = req.params.id;
+  req.body.position = parseInt(req.body.position);
+  await Category.update({ _id: id }, req.body);
+  res.redirect("back");
 };
