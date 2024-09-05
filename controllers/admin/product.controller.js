@@ -1,8 +1,10 @@
 const Product = require("../../models/product.model");
+const Category = require("../../models/category.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
+const createTreeHelper = require("../../helpers/createTree");
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
   //req.query dùng để lấy các tham số trên URL sau dấu ?
@@ -12,6 +14,7 @@ module.exports.index = async (req, res) => {
   let find = {
     deleted: false,
   };
+
   //Tìm kiếm theo status
   if (req.query.status) {
     find.status = req.query.status;
@@ -52,7 +55,7 @@ module.exports.index = async (req, res) => {
     products: products,
     filterStatus: filterStatus,
     keywords: search.keywords,
-    pagination: objectPagination,
+    pagination: objectPagination
   });
 };
 
@@ -129,8 +132,14 @@ module.exports.deleteItem = async (req, res) => {
 
 //[GET] /admin/products/create
 module.exports.create = async (req, res) => {
+  let find = {
+    deleted: false
+  };
+  const category = await Category.find(find);
+  const newCategory = createTreeHelper.tree(category);
   res.render("admin/pages/product/create", {
     pageTitle: "Thêm mới sản phẩm",
+    category: newCategory
   });
 };
 

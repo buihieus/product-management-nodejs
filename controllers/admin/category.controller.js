@@ -19,30 +19,7 @@ module.exports.index = async (req, res) => {
   if (search.regex) {
     find.title = search.regex;
   }
-  // //Pagination
-  // const countCategory = await Category.countDocuments(find);
-  // let objectPagination = paginationHelper(
-  //   {
-  //     currentPage: 1,
-  //     limitItems: 4,
-  //   },
-  //   req.query,
-  //   countCategory
-  // );
-  // //End Pagination
-
-  // //Sort
-  // let sort = {};
-  // if (req.query.sortKey && req.query.sortValue) {
-  //   sort[req.query.sortKey] = req.query.sortValue;
-  // } else {
-  //   sort.position = "asc";
-  // }
-  // //End sort
   const records = await Category.find(find);
-  // .sort(sort)
-  // .limit(objectPagination.limitItems)
-  // .skip(objectPagination.skip);
   const newRecords = createTreeHelper.tree(records);
   res.render("admin/pages/category/index", {
     pageTitle: "Danh mục sản phẩm",

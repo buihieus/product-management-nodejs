@@ -8,7 +8,7 @@ block main
     if (product.discountPercentage)
         div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
     if (product.stock)
-        div(class="mb-4") còn lại: <b>#{product.stock}</b>
+        div(class="mb-4") Còn lại: <b>#{product.stock}</b>
     if (product.thumbnail)
         div(class="mb-4")
             img(
@@ -20,7 +20,7 @@ block main
         div(class="mb-4") 
             span Trạng thái:
                 if (product.status === "active")
-                    span (class="badge badge-success") Hoạt động
+                    span(class="badge badge-success") Hoạt động
                 else
                     span(class="badge badge-danger") Dừng hoạt động
     if (product.position)
