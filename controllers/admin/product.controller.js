@@ -171,11 +171,15 @@ module.exports.edit = async (req, res) => {
       deleted: false,
       _id: req.params.id,
     };
-
+    const category = await Category.find({
+      deleted: false
+    });
+    const newCategory = createTreeHelper.tree(category);
     const product = await Product.findOne(find);
     res.render("admin/pages/product/edit", {
       pageTitle: "Chỉnh sửa sản phẩm",
       product: product,
+      category: newCategory
     });
   } catch (error) {
     res.redirect(`${systemConfig.prefixAdmin}/products`);
