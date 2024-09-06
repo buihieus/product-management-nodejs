@@ -24,6 +24,6 @@ const categorySchema = new mongoose.Schema({
   timestamps: true
 });
 
-const Category = mongoose.model("Category", categorySchema, "category");//catefory là tên bảng trong db
+const Category = mongoose.model("Category", categorySchema, "category");//category là tên bảng trong db
 
 module.exports = Category;
