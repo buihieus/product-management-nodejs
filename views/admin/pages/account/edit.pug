@@ -2,10 +2,11 @@ extends ../../layouts/default.pug
 include ../../mixins/show-alert.pug
 block main
     
-    h1(class="mb-4") Thêm mới tài khoản
+    h1(class="mb-4") Cập nhật tài khoản
+    +alert-success(5000)
     +alert-error(5000)
     form(
-        action=`${preFixAdmin}/accounts/create`
+        action=`${preFixAdmin}/accounts/edit/${record.id}?_method=PATCH`
         method="POST"
         enctype="multipart/form-data"
         )
@@ -16,6 +17,7 @@ block main
             class="form-control"
             id="fullname"
             name="fullname"
+            value=record.fullname
             )
         div(class="form-group") 
             label(for="email") Email *
@@ -24,6 +26,7 @@ block main
             class="form-control"
             id="email"
             name="email"
+            value=record.email
             )
         div(class="form-group") 
             label(for="password") Mật khẩu *
@@ -32,6 +35,7 @@ block main
             class="form-control"
             id="password"
             name="password"
+            value=record.password
             )
         div(class="form-group") 
             label(for="phone") Số điện thoại
@@ -40,6 +44,7 @@ block main
             class="form-control"
             id="phone"
             name="phone"
+            value=record.phone
             )
         div(class="form-group"
             upload-image) 
@@ -51,6 +56,7 @@ block main
             name="avatar"
             accept="image/*"
             upload-image-input
+            value=record.avatar
             )
             img(
                 src=""
@@ -58,12 +64,13 @@ block main
                 upload-image-preview
             )
         div(class="form-group") 
-            label(for="role_id") Danh mục cha
+            label(for="role_id") Phân quyền
             select(name="role_id"
                     id="role_id"
                     class="form-control")   
                 each item in roles 
-                    option(value=item.id) #{item.title}
+                    option(value=item.id
+                        selected=(record.role_id==item.id ? true : false)) #{item.title}
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"
@@ -71,7 +78,7 @@ block main
                 id="statusActive"
                 name="status"
                 value="active"
-                checked
+                checked=(record.status == "active" ? true : false)
                 )         
             label(for="statusActive" class="form-check-label") Hoạt động 
         div(class="form-group form-check form-check-inline")
@@ -81,10 +88,11 @@ block main
             id="statusInActive"
             name="status"
             value="inactive"
+            checked=(record.status == "inactive" ? true : false)
             )
             label(for="statusInActive" class="form-check-label") Dừng hoạt động
         div(class="form-group")
             button(
             type="submit"
             class="btn btn-primary"
-            ) Tạo mới
+            ) Cập nhật
